@@ -22,5 +22,5 @@ sandboxed plugins, signed in-app updates with rollback, Prometheus metrics, Open
 **Known limits:** CAN hardware (PCAN, Kvaser, Vector) is validated against simulators and vendor
 stand-ins, not yet on a production bench; German UI partly translated.
 
-**Assets:** `ATTMS-1.1.0-build113.zip`, `.sha256`, `ATTMS-Product-Demo.mp4`.
+**Assets:** `ATTMS-1.1.0-build113.zip` and its `.sha256` checksum file.
 SHA-256: d250706ca476250fdca5fd00a711638ec0cef46b86abcac858387bb3da9a8921

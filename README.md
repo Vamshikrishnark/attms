@@ -4,8 +4,7 @@ One test case across the whole chain: web pages, APIs, databases, Kafka, files, 
 desktop apps, mobile apps and vehicle ECUs (CAN, UDS, DoIP). Every step keeps its evidence. It runs
 on your own machines, offline, with a local AI.
 
-Product page: **https://vamshikrishnark.github.io/attms/** · Demo video: see the
-[latest release](../../releases/latest).
+Product page: **https://vamshikrishnark.github.io/attms/** · Download: [latest release](../../releases/latest).
 
 ## Download
 
