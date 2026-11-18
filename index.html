@@ -1,191 +1,312 @@
-<title>ATTMS Market Position</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ATTMS - Free Test Automation</title>
+<meta name="description" content="ATTMS is free test automation and test management for testers. Write tests in plain English or record them, then run them on web, desktop, SAP, APIs, databases and vehicles. Runs offline on Windows.">
+<link rel="icon" href="favicon-attms.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Source+Sans+3:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one column of short sections, the comparison matrix as the centrepiece; a test-bench feel (signal traces, channel labels). */
 :root {
-  --bg: #f4f6f8;
-  --surface: #ffffff;
-  --ink: #14202b;
-  --muted: #5b6875;
-  --line: #d9e0e6;
-  --accent: #0f7a7a;        /* ATTMS teal */
-  --accent-soft: #e2f2f1;
-  --yes: #17794a; --yes-bg: #e3f4ea;
-  --part: #8a5a00; --part-bg: #fbf0d9;
-  --no: #a1312b; --no-bg: #fbe5e3;
+  --bg: #f4f6f8; --surface: #ffffff; --ink: #14202b; --muted: #5b6875; --line: #d9e0e6;
+  --accent: #0f7a7a; --accent-ink: #ffffff; --accent-soft: #e2f2f1;
+  --pass: #17794a; --pass-bg: #e3f4ea; --part: #8a5a00; --part-bg: #fbf0d9; --no: #a1312b; --no-bg: #fbe5e3;
   --head: "Archivo", "Segoe UI", system-ui, sans-serif;
   --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0e151b; --surface: #15202a; --ink: #e6edf2; --muted: #9aa8b4; --line: #26343f;
-  --accent: #3cc0b8; --accent-soft: #123130;
-  --yes: #5fd69a; --yes-bg: #133024; --part: #f0c060; --part-bg: #332a12; --no: #f08a82; --no-bg: #3a1a18;
+  --accent: #3cc0b8; --accent-ink: #062120; --accent-soft: #123130;
+  --pass: #5fd69a; --pass-bg: #133024; --part: #f0c060; --part-bg: #332a12; --no: #f08a82; --no-bg: #3a1a18;
   color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #0e151b; --surface: #15202a; --ink: #e6edf2; --muted: #9aa8b4; --line: #26343f;
-  --accent: #3cc0b8; --accent-soft: #123130;
-  --yes: #5fd69a; --yes-bg: #133024; --part: #f0c060; --part-bg: #332a12; --no: #f08a82; --no-bg: #3a1a18;
+  --accent: #3cc0b8; --accent-ink: #062120; --accent-soft: #123130;
+  --pass: #5fd69a; --pass-bg: #133024; --part: #f0c060; --part-bg: #332a12; --no: #f08a82; --no-bg: #3a1a18;
   color-scheme: dark }
 
-body { background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--body); }
-.wrap { max-width: 1080px; margin: 0 auto; padding-block: 40px 56px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
-  display: grid; gap: 40px; }
-h1, h2, h3 { font-family: var(--head); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
-h1 { font-size: clamp(30px, 4.6vw, 46px); font-weight: 800; line-height: 1.08; }
-h2 { font-size: 22px; font-weight: 700; }
-h3 { font-size: 16px; font-weight: 700; }
-p { margin: 0; max-width: 68ch; }
-.label { font: 500 11.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.55 var(--body); }
+a { color: var(--accent); }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-left, 0px)); }
+h1, h2, h3 { font-family: var(--head); margin: 0; letter-spacing: -0.015em; text-wrap: balance; }
+h1 { font-size: clamp(34px, 5.4vw, 58px); font-weight: 800; line-height: 1.04; }
+h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; line-height: 1.15; }
+h3 { font-size: 17px; font-weight: 700; }
+p { margin: 0; }
+.label { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
 .muted { color: var(--muted); }
+section { padding: 64px 0; }
+.sec-head { display: grid; gap: 10px; margin-bottom: 28px; max-width: 720px; }
 
-/* Opening */
-.hero { display: grid; gap: 16px; }
-.hero p.lede { font-size: 19px; color: var(--muted); max-width: 62ch; }
-.trace { width: 100%; height: 34px; color: var(--accent); }
+/* Top bar */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0; }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 20px/1 var(--head); color: var(--ink); text-decoration: none; }
+.brand img { width: 30px; height: 30px; }
+.top nav { display: flex; gap: 18px; font-size: 15px; }
+.top nav a { color: var(--muted); text-decoration: none; }
+.top nav a:hover { color: var(--ink); }
+@media (max-width: 640px) { .top nav a.opt { display: none; } }
 
-/* Market map */
-.groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-.group { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
-.group .who { font: 400 13px/1.4 var(--mono); color: var(--muted); }
-.group .what { font-size: 14.5px; }
-.group .price { font: 500 12.5px/1.3 var(--mono); color: var(--ink); margin-top: 4px; }
+/* Hero */
+.hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; padding: 40px 0 64px; }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 32px; } }
+.hero-copy { display: grid; gap: 20px; }
+.lede { font-size: clamp(18px, 2vw, 21px); color: var(--muted); max-width: 54ch; }
+.lede b { color: var(--ink); font-weight: 600; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font: 700 16px/1 var(--head); padding: 15px 22px; border-radius: 8px; text-decoration: none; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ghost { border: 1.5px solid var(--line); color: var(--ink); background: var(--surface); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14.5px; color: var(--muted); }
+.facts span::before { content: "✓ "; color: var(--pass); font-weight: 700; }
 
-/* Thesis band */
-.thesis { background: var(--accent); color: #fff; border-radius: 10px; padding: 26px 28px; display: grid; gap: 12px; }
-.thesis .label { color: rgba(255,255,255,.75); }
-.thesis p { font: 600 clamp(19px, 2.4vw, 24px)/1.35 var(--head); max-width: 60ch; }
-:root[data-theme="dark"] .thesis, :root:not([data-theme="light"]) .thesis { color: #fff; }
+/* Hero mock: a test case in plain English, running */
+.mock { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 18px 50px -24px rgba(10,30,40,.35); overflow: hidden; }
+.mock-bar { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); font: 600 14px/1.2 var(--head); }
+.mock-bar .dots { display: flex; gap: 5px; } .mock-bar .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+.mock-bar .tag { margin-left: auto; font: 500 11.5px/1 var(--mono); color: var(--pass); background: var(--pass-bg); padding: 5px 8px; border-radius: 999px; }
+.mock ol { list-style: none; margin: 0; padding: 8px 0; counter-reset: s; }
+.mock li { display: grid; grid-template-columns: 26px 78px 1fr 18px; gap: 10px; align-items: baseline; padding: 9px 16px; font-size: 15px; counter-increment: s; }
+.mock li::before { content: counter(s); font: 500 12px/1 var(--mono); color: var(--muted); }
+.mock li .where { font: 500 11px/1.3 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--accent); }
+.mock li .ok { color: var(--pass); font-weight: 700; }
+.mock li + li { border-top: 1px dashed var(--line); }
+.mock-foot { padding: 12px 16px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+@media (max-width: 460px) { .mock li { grid-template-columns: 20px 1fr 16px; } .mock li .where { grid-column: 2; } .mock li .txt { grid-column: 2; } .mock li .ok { grid-row: 1; grid-column: 3; } }
 
-/* Matrix */
-.matrix-box { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
-table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 14.5px; }
+/* Problem band */
+.band { background: var(--accent); color: var(--accent-ink); border-radius: 14px; padding: clamp(24px, 4vw, 40px); display: grid; gap: 14px; }
+.band .label { color: inherit; opacity: .8; }
+.band p.big { font: 700 clamp(20px, 2.6vw, 28px)/1.3 var(--head); max-width: 40ch; }
+.band p.small { opacity: .9; max-width: 62ch; }
+
+/* What you can test */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.tile .ico { width: 38px; height: 38px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+.tile .ico svg { width: 20px; height: 20px; }
+.tile p { font-size: 15px; color: var(--muted); }
+
+/* Steps */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; counter-reset: st; }
+.step { display: grid; gap: 8px; align-content: start; padding-top: 18px; border-top: 3px solid var(--accent); counter-increment: st; }
+.step::before { content: "0" counter(st); font: 500 13px/1 var(--mono); color: var(--accent); }
+.step p { color: var(--muted); font-size: 15.5px; }
+
+/* Features */
+.feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0 40px; }
+.feat { padding: 16px 0; border-bottom: 1px solid var(--line); display: grid; gap: 4px; }
+.feat p { color: var(--muted); font-size: 15.5px; }
+
+/* Who */
+.who { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.who div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 6px; align-content: start; }
+.who p { color: var(--muted); font-size: 15px; }
+
+/* Comparison */
+.matrix-box { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: 15px; }
 th, td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
-thead th { font: 600 13px/1.25 var(--head); background: var(--bg); position: sticky; top: 0; }
+thead th { font: 700 13.5px/1.25 var(--head); background: var(--bg); }
 thead th.us { color: var(--accent); }
-tbody th { font-weight: 600; width: 24%; }
+tbody th { font-weight: 600; width: 28%; }
 td.us { background: var(--accent-soft); }
 tr:last-child th, tr:last-child td { border-bottom: 0; }
-.chip { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
-.chip::before { font-family: var(--mono); font-size: 12px; }
-.y { color: var(--yes); background: var(--yes-bg); } .y::before { content: "●"; }
-.p { color: var(--part); background: var(--part-bg); } .p::before { content: "◐"; }
-.n { color: var(--no); background: var(--no-bg); } .n::before { content: "○"; }
+.chip { display: inline-block; font-weight: 600; font-size: 13px; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.y { color: var(--pass); background: var(--pass-bg); } .p { color: var(--part); background: var(--part-bg); } .n { color: var(--no); background: var(--no-bg); }
 .note { display: block; color: var(--muted); font-size: 13px; margin-top: 3px; }
 
-/* Two columns */
-.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-.col { display: grid; gap: 12px; align-content: start; min-width: 0; }
-ul.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-ul.list li { padding-left: 22px; position: relative; }
-ul.list li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 9px; height: 2px; background: var(--accent); }
-ul.list b { font-weight: 600; }
+/* Editions */
+.eds { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.ed { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: grid; gap: 14px; align-content: start; }
+.ed.free { border: 2px solid var(--accent); }
+.ed ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--muted); font-size: 15.5px; }
 
-/* Example flow */
-.flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font: 500 13.5px/1.2 var(--mono); }
-.flow span.step { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; }
-.flow span.arrow { color: var(--muted); }
+/* Final CTA */
+.final { text-align: center; display: grid; gap: 18px; justify-items: center; }
+.final .cta { justify-content: center; }
+code { font: 500 .9em var(--mono); background: var(--accent-soft); padding: 1px 6px; border-radius: 4px; }
 
-/* Roadmap */
-.road { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-.road div { border-top: 3px solid var(--accent); background: var(--surface); border-radius: 0 0 8px 8px; padding: 12px 14px; display: grid; gap: 4px; align-content: start; }
-.road div p { font-size: 14.5px; color: var(--muted); }
-
-footer { border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
-@media (max-width: 520px) { .thesis { padding: 20px; } }
+footer { border-top: 1px solid var(--line); padding: 22px 0 40px; font-size: 13.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 </style>
-
+</head>
+<body>
 <div class="wrap">
 
+  <div class="top">
+    <a class="brand" href="#"><img src="logo-attms.svg" alt="">ATTMS</a>
+    <nav>
+      <a class="opt" href="#what">What it tests</a>
+      <a class="opt" href="#how">How it works</a>
+      <a class="opt" href="#editions">Free vs licensed</a>
+      <a href="https://github.com/Vamshikrishnark/attms/releases/latest">Download</a>
+    </nav>
+  </div>
+
   <header class="hero">
-    <span class="label">ATTMS · free Community edition · Windows</span>
-    <h1>One test bench for the whole vehicle-to-portal chain</h1>
-    <p class="lede">Most testing tools are excellent at one layer: the web UI, the test plan, or the CAN bus. ATTMS tests across all of them in one case, and runs offline on a lab PC.</p>
-    <svg class="trace" viewBox="0 0 1000 34" preserveAspectRatio="none" role="img" aria-label="A signal trace, as on a CAN bus analyser">
-      <polyline fill="none" stroke="currentColor" stroke-width="2" points="0,26 90,26 90,8 170,8 170,26 240,26 240,8 280,8 280,26 400,26 400,8 520,8 520,26 560,26 560,8 640,8 640,26 760,26 760,8 800,8 800,26 900,26 900,8 1000,8"/>
-    </svg>
+    <div class="hero-copy">
+      <span class="label">Free test automation for Windows</span>
+      <h1>Automate your tests in plain English. No code needed.</h1>
+      <p class="lede">ATTMS is a <b>test automation and test management tool for testers</b>. Record or type your test steps, run them on <b>websites, desktop apps, SAP, APIs and databases</b>, and get a report with screenshots, all from one place on your own PC.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/Vamshikrishnark/attms/releases/latest">⬇ Download free</a>
+        <a class="btn ghost" href="https://github.com/Vamshikrishnark/attms/releases/latest">▶ Watch the 3-min demo</a>
+      </div>
+      <div class="facts"><span>Free Community edition</span><span>No sign-up</span><span>Works offline</span><span>No cloud, your data stays local</span></div>
+    </div>
+
+    <figure class="mock" style="margin:0" aria-label="Example: a test case written in plain English, passed">
+      <div class="mock-bar"><span class="dots"><i></i><i></i><i></i></span>Login and submit a claim<span class="tag">PASSED · 14 s</span></div>
+      <ol>
+        <li><span class="where">Web</span><span class="txt">Open the portal and log in as <i>tester</i></span><span class="ok">✓</span></li>
+        <li><span class="where">Web</span><span class="txt">Fill the claim form and click <i>Submit</i></span><span class="ok">✓</span></li>
+        <li><span class="where">API</span><span class="txt">GET /claims/latest returns status 200</span><span class="ok">✓</span></li>
+        <li><span class="where">Database</span><span class="txt">The claim row has status <i>OPEN</i></span><span class="ok">✓</span></li>
+        <li><span class="where">Desktop</span><span class="txt">The claim appears in the back-office app</span><span class="ok">✓</span></li>
+      </ol>
+      <figcaption class="mock-foot"><span>📸 5 screenshots</span><span>📄 Report ready</span><span>🔗 Linked to story CLM-142</span></figcaption>
+    </figure>
   </header>
 
+  <div class="band">
+    <span class="label">Why ATTMS</span>
+    <p class="big">One end-to-end test usually means one tool for the web, another for the API, a script for the database and a spreadsheet for results.</p>
+    <p class="small">ATTMS puts it all in one test case, one run and one report. Testers write and run it, without waiting for a developer.</p>
+  </div>
 
-  <section class="thesis">
-    <span class="label">Where ATTMS fits</span>
-    <p>One offline, all-in-one workbench for testers: web, desktop, SAP, APIs, data pipelines and vehicle diagnostics in the same test case, with the evidence kept. It works alongside the tools your team already uses.</p>
-  </section>
-
-  <section style="display:grid;gap:14px">
-    <span class="label">A typical end-to-end check</span>
-    <h2>Today this needs four tools glued together</h2>
-    <div class="flow" aria-label="Example test flow">
-      <span class="step">Send CAN signal</span><span class="arrow">→</span>
-      <span class="step">Check Kafka / database</span><span class="arrow">→</span>
-      <span class="step">Check the web portal</span><span class="arrow">→</span>
-      <span class="step">Read ECU fault codes (UDS)</span><span class="arrow">→</span>
-      <span class="step">Link result to the story</span>
+  <section id="what">
+    <div class="sec-head">
+      <span class="label">What you can test</span>
+      <h2>Almost anything your team ships</h2>
+      <p class="muted">Use one kind of step or mix them in the same case. It works for banking, insurance, retail, SAP projects, in-house apps and connected vehicles.</p>
     </div>
-    <p class="muted">In ATTMS it is one case, one run and one report.</p>
+    <div class="tiles">
+      <div class="tile"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></span><h3>Websites and web apps</h3><p>Click, type, check text and take screenshots in Chrome, Edge or Firefox. Record your clicks to build steps.</p></div>
+      <div class="tile"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><h3>Windows desktop apps</h3><p>Test thick-client and back-office applications with the desktop recorder.</p></div>
+      <div class="tile"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><h3>SAP GUI</h3><p>Transactions, fields, tables and grids, recorded and replayed.</p></div>
+      <div class="tile"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg></span><h3>APIs</h3><p>REST calls with checks on status, body and fields, chained with your UI steps.</p></div>
+      <div class="tile"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>Databases and data pipelines</h3><p>SQL, MongoDB, Kafka and S3. Check that the data matches what the screen shows.</p></div>
+      <div class="tile"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span><h3>Mobile apps</h3><p>Android apps on a phone or emulator (via Maestro), in the same case as your web steps.</p></div>
+      <div class="tile"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14l-1.5-6h-11z"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/><path d="M8 11l1.5-4h5L16 11"/></svg></span><h3>Vehicles and ECUs</h3><p>CAN signals and UDS/DoIP diagnostics for automotive teams, as one more kind of step.</p></div>
+      <div class="tile"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9l3 3-3 3M13 15h3"/></svg></span><h3>Your existing tests</h3><p>Run Playwright, Cucumber, Robot and JUnit suites from ATTMS, then convert them step by step.</p></div>
+    </div>
   </section>
 
-  <section style="display:grid;gap:14px">
-    <span class="label">Comparison</span>
-    <h2>How ATTMS compares</h2>
+  <section id="how" style="padding-top:0">
+    <div class="sec-head">
+      <span class="label">How it works</span>
+      <h2>From idea to report in three steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Write or record the test</h3><p>Type steps in plain English, record clicks in the browser, desktop or SAP, or let the local AI draft cases from a user story for you to review.</p></div>
+      <div class="step"><h3>Run it, on one PC or many</h3><p>Run a single case or a whole suite now or on a schedule. Agents on other PCs or lab machines can run them in parallel.</p></div>
+      <div class="step"><h3>See what happened</h3><p>Each run keeps screenshots, logs and timing. A failure comes with a plain-language explanation, and results link back to your stories and releases.</p></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-head">
+      <span class="label">Built in</span>
+      <h2>Test management is included</h2>
+      <p class="muted">You don't need a separate tool for planning, tracking and reporting.</p>
+    </div>
+    <div class="feats">
+      <div class="feat"><h3>Stories, cases and suites</h3><p>Organise by project and see coverage per story.</p></div>
+      <div class="feat"><h3>Local AI assistant</h3><p>Drafts cases and explains failures using a model on your own machine, with no cloud involved.</p></div>
+      <div class="feat"><h3>Reports and Excel export</h3><p>Results anyone can read, ready to share with your manager.</p></div>
+      <div class="feat"><h3>Jira and tracker links</h3><p>Pull stories in and keep results traceable.</p></div>
+      <div class="feat"><h3>Test data and environments</h3><p>Switch between test, staging and other environments without editing cases.</p></div>
+      <div class="feat"><h3>English and German interface</h3><p>Built for mixed teams.</p></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-head">
+      <span class="label">Made for</span>
+      <h2>Who uses ATTMS</h2>
+    </div>
+    <div class="who">
+      <div><h3>Manual testers</h3><p>Start automating without learning to code. Your test steps already are the automation.</p></div>
+      <div><h3>QA and automation engineers</h3><p>One place for UI, API and data checks, plus the suites you already have.</p></div>
+      <div><h3>SAP and enterprise app teams</h3><p>Regression on SAP and back-office apps together with the web portal.</p></div>
+      <div><h3>Teams on locked-down networks</h3><p>Banks, plants and labs where cloud tools are not allowed. Updates install offline.</p></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-head">
+      <span class="label">Comparison</span>
+      <h2>How ATTMS compares</h2>
+    </div>
     <div class="matrix-box">
       <table>
-        <thead><tr><th scope="col"></th><th scope="col" class="us">ATTMS</th><th scope="col">Low-code UI suites</th><th scope="col">Automotive bench tools</th><th scope="col">Code frameworks</th></tr></thead>
+        <thead><tr><th scope="col"></th><th scope="col" class="us">ATTMS</th><th scope="col">Low-code UI suites</th><th scope="col">Code frameworks</th><th scope="col">Automotive bench tools</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Browser, desktop and mobile UI</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip y">Yes</span></td><td><span class="chip n">No</span></td><td><span class="chip y">Yes</span><span class="note">as code</span></td></tr>
-          <tr><th scope="row">API, databases, Kafka, MongoDB, S3</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip p">API and DB</span></td><td><span class="chip n">No</span></td><td><span class="chip p">As code</span></td></tr>
-          <tr><th scope="row">CAN, UDS and DoIP diagnostics</th><td class="us"><span class="chip y">Yes</span><span class="note">bench validation in progress</span></td><td><span class="chip n">No</span></td><td><span class="chip y">Yes, deepest</span></td><td><span class="chip n">No</span></td></tr>
-          <tr><th scope="row">Test management and traceability</th><td class="us"><span class="chip y">Built in</span></td><td><span class="chip p">Partly</span></td><td><span class="chip n">Separate tool</span></td><td><span class="chip n">Separate tool</span></td></tr>
-          <tr><th scope="row">Runs offline on a lab PC</th><td class="us"><span class="chip y">Yes</span><span class="note">signed updates via USB</span></td><td><span class="chip p">Mostly</span></td><td><span class="chip y">Yes</span></td><td><span class="chip y">Yes</span></td></tr>
-          <tr><th scope="row">Keeps existing suites running</th><td class="us"><span class="chip y">Yes</span><span class="note">Cucumber, Robot, Playwright, JUnit</span></td><td><span class="chip p">Some imports</span></td><td><span class="chip n">No</span></td><td><span class="chip n">n/a</span></td></tr>
-          <tr><th scope="row">Local AI assistance</th><td class="us"><span class="chip y">Yes</span><span class="note">on-premise model, no cloud</span></td><td><span class="chip p">Cloud AI</span></td><td><span class="chip n">No</span></td><td><span class="chip n">No</span></td></tr>
-          <tr><th scope="row">Maturity and references</th><td class="us"><span class="chip p">Early stage</span><span class="note">pilot customers wanted</span></td><td><span class="chip y">Established</span></td><td><span class="chip y">Industry standard</span></td><td><span class="chip y">Large community</span></td></tr>
-          <tr><th scope="row">ISO 26262 tool qualification</th><td class="us"><span class="chip p">Planned</span></td><td><span class="chip p">Some</span></td><td><span class="chip y">Yes</span></td><td><span class="chip n">No</span></td></tr>
+          <tr><th scope="row">No coding needed</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip y">Yes</span></td><td><span class="chip n">No</span></td><td><span class="chip p">Partly</span></td></tr>
+          <tr><th scope="row">Web, desktop, SAP and mobile</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip y">Yes</span></td><td><span class="chip p">Mostly web</span></td><td><span class="chip n">No</span></td></tr>
+          <tr><th scope="row">APIs, databases, Kafka</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip p">API and DB</span></td><td><span class="chip p">As code</span></td><td><span class="chip n">No</span></td></tr>
+          <tr><th scope="row">Test management built in</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip p">Partly</span></td><td><span class="chip n">Separate tool</span></td><td><span class="chip n">Separate tool</span></td></tr>
+          <tr><th scope="row">Runs fully offline</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip p">Mostly</span></td><td><span class="chip y">Yes</span></td><td><span class="chip y">Yes</span></td></tr>
+          <tr><th scope="row">AI without the cloud</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip p">Cloud AI</span></td><td><span class="chip n">No</span></td><td><span class="chip n">No</span></td></tr>
+          <tr><th scope="row">Vehicle diagnostics (CAN, UDS)</th><td class="us"><span class="chip y">Yes</span></td><td><span class="chip n">No</span></td><td><span class="chip n">No</span></td><td><span class="chip y">Yes, deepest</span></td></tr>
+          <tr><th scope="row">Free to start</th><td class="us"><span class="chip y">Yes</span><span class="note">Community edition</span></td><td><span class="chip p">Trial</span></td><td><span class="chip y">Yes</span></td><td><span class="chip n">No</span></td></tr>
+          <tr><th scope="row">Maturity</th><td class="us"><span class="chip p">New</span><span class="note">your feedback shapes it</span></td><td><span class="chip y">Established</span></td><td><span class="chip y">Large community</span></td><td><span class="chip y">Industry standard</span></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section class="cols">
-    <div class="col">
-      <span class="label">Why testers use it</span>
-      <h2>Strengths</h2>
-      <ul class="list">
-        <li><b>One case across every layer:</b> UI, APIs, data pipelines and vehicle diagnostics.</li>
-        <li><b>Built for plants and labs:</b> self-hosted, offline-capable, runs on standard PCs.</li>
-        <li><b>Traceability included:</b> stories, reviews, releases and defects, ready for ASPICE audits.</li>
-        <li><b>No big-bang migration:</b> existing Cucumber, Robot and Playwright suites keep running, then convert step by step.</li>
-        <li><b>Testers, not only developers:</b> recording, plain-English steps and a German interface.</li>
-      </ul>
+  <section id="editions" style="padding-top:0">
+    <div class="sec-head">
+      <span class="label">Editions</span>
+      <h2>Free to use. Licence for bigger teams.</h2>
+      <p class="muted">It's the same download. A licence key unlocks the extras, with no reinstall.</p>
     </div>
-    <div class="col">
-      <span class="label">Made for</span>
-      <h2>Who it is for</h2>
-      <ul class="list">
-        <li><b>Manual testers moving to automation</b> - record or write steps in plain English, no code.</li>
-        <li><b>System and integration test teams</b> covering ECU, backend and portal together.</li>
-        <li><b>Teams on isolated networks</b> where cloud tools are not allowed.</li>
-        <li><b>Automation engineers</b> who want their existing Playwright, Robot or Cucumber suites in one place.</li>
-      </ul>
+    <div class="eds">
+      <div class="ed free">
+        <h3>Community, free</h3>
+        <ul>
+          <li>Everything to write, record, run and report tests</li>
+          <li>Web, desktop, SAP, mobile, API, databases, Kafka, CAN simulation</li>
+          <li>Test management, local AI, Excel reports</li>
+          <li>Up to 3 users and 2 agent PCs</li>
+          <li>No sign-up, no time limit</li>
+        </ul>
+        <a class="btn primary" href="https://github.com/Vamshikrishnark/attms/releases/latest" style="justify-self:start">⬇ Download free</a>
+      </div>
+      <div class="ed">
+        <h3>Licensed</h3>
+        <ul>
+          <li>Unlimited users and agents</li>
+          <li>SSO and company directory login</li>
+          <li>Approvals, audit export and evidence packs</li>
+          <li>Release sign-off and Hotfix Shield</li>
+          <li>Write-back to Jira and trackers, plugins, monitoring</li>
+          <li>CAN hardware interfaces (PCAN, Kvaser, Vector)</li>
+        </ul>
+        <a class="btn ghost" href="mailto:vamshikrishna.lrk@gmail.com?subject=ATTMS%20licence" style="justify-self:start">Ask for a key</a>
+      </div>
     </div>
   </section>
 
-  <section style="display:grid;gap:14px">
-    <span class="label">Get it</span>
-    <h2>Download and evaluate</h2>
-    <div class="road">
-      <div><h3>1. Download</h3><p><a href="https://github.com/Vamshikrishnark/attms/releases/latest">ATTMS 1.1.0 for Windows</a> - unzip, double-click <code>ATTMS.bat</code>. Nothing needs the internet.</p></div>
-      <div><h3>2. Run the demo</h3><p>Open the bundled ClaimsHub demo project and run a case. Free Community edition: up to 2 agents and 3 users, no sign-up.</p></div>
-      <div><h3>3. Watch first</h3><p><a href="https://github.com/Vamshikrishnark/attms/releases/latest">Three-minute product demo</a>, attached to the release.</p></div>
-      <div><h3>Questions and ideas</h3><p><a href="https://github.com/Vamshikrishnark/attms/issues">Open an issue</a>. Bigger teams: e-mail <a href="mailto:vamshikrishna.lrk@gmail.com?subject=ATTMS%20team%20licence">vamshikrishna.lrk@gmail.com</a> for a key that lifts the limits.</p></div>
+  <section class="final" style="padding-top:0">
+    <h2>Try it on your own app today</h2>
+    <p class="muted" style="max-width:60ch">Download the zip, unzip it and double-click <code>ATTMS.bat</code>. Open <b>Get started</b> to run the bundled demo project in a few minutes.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Vamshikrishnark/attms/releases/latest">⬇ Download ATTMS for Windows</a>
+      <a class="btn ghost" href="https://github.com/Vamshikrishnark/attms/issues">Questions and ideas</a>
     </div>
   </section>
 
   <footer>
+    <span>© 2026 vamshikrishna.rk · ATTMS is proprietary software, free to use in the Community edition.</span>
     <span>Product names belong to their owners.</span>
-    <span>© 2026 vamshikrishna.rk. ATTMS is proprietary software.</span>
   </footer>
 </div>
+</body>
+</html>
