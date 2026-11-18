@@ -1,4 +1,4 @@
-﻿## ATTMS 1.1.0 (build 113) - first public release
+﻿## ATTMS 1.1.0 (build 115) - first public release
 
 **What it is:** the complete Windows package - hub, agent with the Windows and SAP GUI recorders,
 web app, bundled Chromium, example cases and the ClaimsHub demo project. Signed; the hub checks every
@@ -22,5 +22,5 @@ sandboxed plugins, signed in-app updates with rollback, Prometheus metrics, Open
 **Known limits:** CAN hardware (PCAN, Kvaser, Vector) is validated against simulators and vendor
 stand-ins, not yet on a production bench; German UI partly translated.
 
-**Assets:** `ATTMS-1.1.0-build113.zip` and its `.sha256` checksum file.
-SHA-256: d250706ca476250fdca5fd00a711638ec0cef46b86abcac858387bb3da9a8921
+**Assets:** `ATTMS-1.1.0-build115.zip` and its `.sha256` checksum file.
+SHA-256: 9d6480c52cb4eb1bf6177b9e51925d327e2fa1c9a7c72b3ba78d10672136da61
